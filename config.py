@@ -31,53 +31,53 @@ except ModuleNotFoundError:
 class Config:
     #Telegram API Stuffs
     load_dotenv()  # load enviroment variables from .env file
-    ADMIN = os.environ.get("ADMINS", '')
+    ADMIN = "ADMINS"
     SUDO = [int(admin) for admin in (ADMIN).split()] # Exclusive for heroku vars configuration.
     ADMINS = [int(admin) for admin in (ADMIN).split()] #group admins will be appended to this list.
-    API_ID = int(os.environ.get("API_ID", ''))
-    API_HASH = os.environ.get("API_HASH", "")
-    BOT_TOKEN = os.environ.get("BOT_TOKEN", "")     
-    SESSION = os.environ.get("SESSION_STRING", "")
+    API_ID = "API_ID"
+    API_HASH = "API_HASH"
+    BOT_TOKEN = "BOT_TOKEN"   
+    SESSION = "SESSION_STRING"
 
     #Stream Chat and Log Group
-    CHAT = int(os.environ.get("CHAT", ""))
-    LOG_GROUP=os.environ.get("LOG_GROUP", "")
+    CHAT = "CHAT"
+    LOG_GROUP= "LOG_GROUP"
 
     #Stream 
-    STREAM_URL=os.environ.get("STARTUP_STREAM", "https://www.youtube.com/watch?v=zcrUCvBD16k")
+    STREAM_URL= "STARTUP_STREAM"
    
     #Database
-    DATABASE_URI=os.environ.get("DATABASE_URI", None)
-    DATABASE_NAME=os.environ.get("DATABASE_NAME", "VCPlayerBot")
+    DATABASE_URI= "DATABASE_URI"
+    DATABASE_NAME= "DATABASE_NAME"
 
 
     #heroku
-    API_KEY=os.environ.get("HEROKU_API_KEY", None)
-    APP_NAME=os.environ.get("HEROKU_APP_NAME", None)
+    API_KEY= "HEROKU_API_KEY"
+    APP_NAME= "HEROKU_APP_NAME"
 
 
     #Optional Configuration
-    SHUFFLE=is_enabled(os.environ.get("SHUFFLE", 'True'))
-    ADMIN_ONLY=is_enabled(os.environ.get("ADMIN_ONLY", "False"))
-    REPLY_MESSAGE=os.environ.get("REPLY_MESSAGE", False)
-    EDIT_TITLE = os.environ.get("EDIT_TITLE", True)
+    SHUFFLE= "SHUFFLE"
+    ADMIN_ONLY= "ADMIN_ONLY"
+    REPLY_MESSAGE= "REPLY_MESSAGE"
+    EDIT_TITLE = "EDIT_TITLE"
     #others
     
-    RECORDING_DUMP=os.environ.get("RECORDING_DUMP", False)
-    RECORDING_TITLE=os.environ.get("RECORDING_TITLE", False)
-    TIME_ZONE = os.environ.get("TIME_ZONE", "Asia/Kolkata")    
-    IS_VIDEO=is_enabled(os.environ.get("IS_VIDEO", 'True'))
-    IS_LOOP=is_enabled(os.environ.get("IS_LOOP", 'True'))
-    DELAY=int(os.environ.get("DELAY", '10'))
-    PORTRAIT=is_enabled(os.environ.get("PORTRAIT", 'False'))
-    IS_VIDEO_RECORD=is_enabled(os.environ.get("IS_VIDEO_RECORD", 'True'))
-    DEBUG=is_enabled(os.environ.get("DEBUG", 'False'))
-    PTN=is_enabled(os.environ.get("PTN", "False"))
+    RECORDING_DUMP= "RECORDING_DUMP"
+    RECORDING_TITLE= "RECORDING_TITLE"
+    TIME_ZONE = "TIME_ZONE"
+    IS_VIDEO= "IS_VIDEO"
+    IS_LOOP= "IS_LOOP"
+    DELAY= "DELAY"
+    PORTRAIT= "PORTRAIT"
+    IS_VIDEO_RECORD= "IS_VIDEO_RECORD"
+    DEBUG= "DEBUG"
+    PTN= "PTN"
 
     #Quality vars
-    E_BITRATE=os.environ.get("BITRATE", False)
-    E_FPS=os.environ.get("FPS", False)
-    CUSTOM_QUALITY=os.environ.get("QUALITY", "100")
+    E_BITRATE= "BITRATE"
+    E_FPS= "FPS"
+    CUSTOM_QUALITY= "QUALITY"
 
     #Search filters for cplay
     FILTERS =  [filter.lower() for filter in (os.environ.get("FILTERS", "video document")).split(" ")]
