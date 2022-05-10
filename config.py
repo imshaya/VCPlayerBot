@@ -31,23 +31,23 @@ except ModuleNotFoundError:
 class Config:
     #Telegram API Stuffs
     load_dotenv()  # load enviroment variables from .env file
-    ADMIN = "ADMINS"
+    ADMIN = 1203688744
     SUDO = [int(admin) for admin in (ADMIN).split()] # Exclusive for heroku vars configuration.
     ADMINS = [int(admin) for admin in (ADMIN).split()] #group admins will be appended to this list.
-    API_ID = "API_ID"
-    API_HASH = "API_HASH"
-    BOT_TOKEN = "BOT_TOKEN"   
-    SESSION = "SESSION_STRING"
+    API_ID = 11042778
+    API_HASH = 583227ff3ba18dcd47f89b92fa01e092
+    BOT_TOKEN = 5062201942:AAFqRnF6fxMJfTOHpr7LstDYU2WskY9ug1w   
+    SESSION = BAAO0dAjZqNnl9xSI-rlvx3fds1tpJBFWngROV67eA44KRC0Xy9SMOq_yhM-4UnPdyHxlx2PvJB5xGN0yNyAVkyy_nHt7svKWPIo76IPC2C6u5jcE0DpNgyU7cua5KUDTyU64HR6byqRLmFuyxMZEJSuiD91aytbRnrWgChrRmtIORmL-OW27B22cJr8JStFCujk01Ga2ouPOP1eBbLAWXU4cxQuAT9Q-98DIETUgEIWwzTHpq0QxGZBrCJOeROdqbYVnodkjuf5u37UX6uabrFTGgcMk0EYK7RbeG_7MM_7Dq0ysm6zaU9F9b3mRU3xuxPZ442hfR_Jx5ZTKi38UV_3AAAAAHiWePgA
 
     #Stream Chat and Log Group
-    CHAT = "CHAT"
-    LOG_GROUP= "LOG_GROUP"
+    CHAT = -1001599715690
+    LOG_GROUP= -1001799098069
 
     #Stream 
-    STREAM_URL= "STARTUP_STREAM"
+    STREAM_URL= /
    
     #Database
-    DATABASE_URI= "DATABASE_URI"
+    DATABASE_URI= mongodb+srv://gapemoonub:gapemoonub@cluster0.ss4bq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
     DATABASE_NAME= "DATABASE_NAME"
 
 
