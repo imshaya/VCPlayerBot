@@ -75,8 +75,8 @@ class Config:
     PTN=is_enabled("False")
 
     #Quality vars
-    E_BITRATE= "False"
-    E_FPS= "False"
+    E_BITRATE= "24000"
+    E_FPS= "30"
     CUSTOM_QUALITY= "50"
 
     #Search filters for cplay
