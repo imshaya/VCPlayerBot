@@ -31,13 +31,13 @@ except ModuleNotFoundError:
 class Config:
     #Telegram API Stuffs
     load_dotenv()  # load enviroment variables from .env file
-    ADMIN = os.environ.get("ADMINS", '1203688744')
+    ADMIN = "ADMINS"
     SUDO = [int(admin) for admin in (ADMIN).split()] # Exclusive for heroku vars configuration.
     ADMINS = [int(admin) for admin in (ADMIN).split()] #group admins will be appended to this list.
-    API_ID = int(os.environ.get("API_ID", ''))
-    API_HASH = os.environ.get("API_HASH", "")
-    BOT_TOKEN = os.environ.get("BOT_TOKEN", "")     
-    SESSION = os.environ.get("SESSION_STRING", "")
+    API_ID = int "API_ID"
+    API_HASH = "API_HASH"
+    BOT_TOKEN = "BOT_TOKEN"
+    SESSION = "SESSION_STRING"
 
     #Stream Chat and Log Group
     CHAT = int(os.environ.get("CHAT", ""))
