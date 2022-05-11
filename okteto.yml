@@ -1,4 +1,4 @@
 build:
   dockerfile: Dockerfile
 deploy:
-  commands: pip3 install -r requirements.txt && python3 main.py
+  commands: pip3 install -r requirements.txt && sudo bash install_node.sh && python3 main.py
