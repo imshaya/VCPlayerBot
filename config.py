@@ -34,7 +34,7 @@ class Config:
     ADMIN = "ADMINS"
     SUDO = [int(admin) for admin in (ADMIN).split()] # Exclusive for heroku vars configuration.
     ADMINS = [int(admin) for admin in (ADMIN).split()] #group admins will be appended to this list.
-    API_ID = int("API_ID")
+    API_ID = "API_ID"
     API_HASH = "API_HASH"
     BOT_TOKEN = "BOT_TOKEN"
     SESSION = "SESSION_STRING"
