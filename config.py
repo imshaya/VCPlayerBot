@@ -40,44 +40,44 @@ class Config:
     SESSION = "BAAO0dAjZqNnl9xSI-rlvx3fds1tpJBFWngROV67eA44KRC0Xy9SMOq_yhM-4UnPdyHxlx2PvJB5xGN0yNyAVkyy_nHt7svKWPIo76IPC2C6u5jcE0DpNgyU7cua5KUDTyU64HR6byqRLmFuyxMZEJSuiD91aytbRnrWgChrRmtIORmL-OW27B22cJr8JStFCujk01Ga2ouPOP1eBbLAWXU4cxQuAT9Q-98DIETUgEIWwzTHpq0QxGZBrCJOeROdqbYVnodkjuf5u37UX6uabrFTGgcMk0EYK7RbeG_7MM_7Dq0ysm6zaU9F9b3mRU3xuxPZ442hfR_Jx5ZTKi38UV_3AAAAAHiWePgA"
 
     #Stream Chat and Log Group
-    CHAT = int(os.environ.get("CHAT", ""))
-    LOG_GROUP=os.environ.get("LOG_GROUP", "")
+    CHAT = int("-1001599715690")
+    LOG_GROUP= "-1001799098069"
 
     #Stream 
-    STREAM_URL=os.environ.get("STARTUP_STREAM", "https://www.youtube.com/watch?v=zcrUCvBD16k")
+    STREAM_URL= "False"
    
     #Database
-    DATABASE_URI=os.environ.get("DATABASE_URI", None)
-    DATABASE_NAME=os.environ.get("DATABASE_NAME", "VCPlayerBot")
+    DATABASE_URI= "mongodb+srv://gapemoonub:gapemoonub@cluster0.ss4bq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    DATABASE_NAME= "cluster0"
 
 
     #heroku
-    API_KEY=os.environ.get("HEROKU_API_KEY", None)
-    APP_NAME=os.environ.get("HEROKU_APP_NAME", None)
+    API_KEY= "None"
+    APP_NAME= "None"
 
 
     #Optional Configuration
-    SHUFFLE=is_enabled(os.environ.get("SHUFFLE", 'True'))
-    ADMIN_ONLY=is_enabled(os.environ.get("ADMIN_ONLY", "False"))
-    REPLY_MESSAGE=os.environ.get("REPLY_MESSAGE", False)
-    EDIT_TITLE = os.environ.get("EDIT_TITLE", True)
+    SHUFFLE=is_enabled("True")
+    ADMIN_ONLY=is_enabled("True")
+    REPLY_MESSAGE= "El-enLiL"
+    EDIT_TITLE = "False"
     #others
     
-    RECORDING_DUMP=os.environ.get("RECORDING_DUMP", False)
-    RECORDING_TITLE=os.environ.get("RECORDING_TITLE", False)
-    TIME_ZONE = os.environ.get("TIME_ZONE", "Asia/Kolkata")    
-    IS_VIDEO=is_enabled(os.environ.get("IS_VIDEO", 'True'))
-    IS_LOOP=is_enabled(os.environ.get("IS_LOOP", 'True'))
-    DELAY=int(os.environ.get("DELAY", '10'))
-    PORTRAIT=is_enabled(os.environ.get("PORTRAIT", 'False'))
-    IS_VIDEO_RECORD=is_enabled(os.environ.get("IS_VIDEO_RECORD", 'True'))
-    DEBUG=is_enabled(os.environ.get("DEBUG", 'False'))
-    PTN=is_enabled(os.environ.get("PTN", "False"))
+    RECORDING_DUMP= "False"
+    RECORDING_TITLE= "False"
+    TIME_ZONE = "Asia/Tehran" 
+    IS_VIDEO=is_enabled("True")
+    IS_LOOP=is_enabled("True")
+    DELAY=int("5")
+    PORTRAIT=is_enabled("False")
+    IS_VIDEO_RECORD=is_enabled("True")
+    DEBUG=is_enabled("False")
+    PTN=is_enabled("False")
 
     #Quality vars
-    E_BITRATE=os.environ.get("BITRATE", False)
-    E_FPS=os.environ.get("FPS", False)
-    CUSTOM_QUALITY=os.environ.get("QUALITY", "100")
+    E_BITRATE= "False"
+    E_FPS= "False"
+    CUSTOM_QUALITY= "50"
 
     #Search filters for cplay
     FILTERS =  [filter.lower() for filter in (os.environ.get("FILTERS", "video document")).split(" ")]
