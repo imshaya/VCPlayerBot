@@ -32,8 +32,6 @@ class Config:
     #Telegram API Stuffs
     load_dotenv()  # load enviroment variables from .env file
     ADMIN = "ADMINS"
-    SUDO = [int(admin) for admin in (ADMIN).split()] # Exclusive for heroku vars configuration.
-    ADMINS = [int(admin) for admin in (ADMIN).split()] #group admins will be appended to this list.
     API_ID = "API_ID"
     API_HASH = "API_HASH"
     BOT_TOKEN = "BOT_TOKEN"
