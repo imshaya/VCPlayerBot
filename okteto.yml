@@ -1,5 +1,0 @@
-build:
-  dockerfile: Dockerfile
-deploy:
-  command: ["python3 main.py"]
-
