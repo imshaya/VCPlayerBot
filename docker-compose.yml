@@ -18,4 +18,4 @@ services:
     - IS_LOOP=True
     - DELAY=5
     - QUALITY=low
-    command: python3 main.py
+    command: python3 ~/vcplayerbot/main.py
