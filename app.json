@@ -4,15 +4,7 @@
     "repository": "https://github.com/impta/VCPlayerBot",
     "stack": "container",
     "keywords": [
-      "telegram",
-      "bot",
-      "voicechat",
-      "music",
-      "python",
-      "pyrogram",
-      "pytgcalls",
-      "tgcalls",
-      "voip"
+      "telegram"
     ],
     "env": {
       "API_ID": {
