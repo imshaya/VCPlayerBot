@@ -33,7 +33,7 @@ class Config:
     load_dotenv()  # load enviroment variables from .env file
     ADMINS = "1203688744"
     API_ID = int("11042778")
-    API_HASH = "API_HASH"
+    API_HASH = "583227ff3ba18dcd47f89b92fa01e092"
     BOT_TOKEN = "BOT_TOKEN"
     SESSION = "SESSION_STRING"
 
