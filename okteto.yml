@@ -3,7 +3,6 @@ build:
 deploy:
   compose:
     - docker-compose.yml
-envFiles: .env
 dev:
   api:
     command: ["python3 main.py"]
