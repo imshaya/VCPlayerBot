@@ -31,7 +31,9 @@ except ModuleNotFoundError:
 class Config:
     #Telegram API Stuffs
     load_dotenv()  # load enviroment variables from .env file
-    ADMINS = "1203688744"
+    ADMIN = "1203688744"
+    SUDO = [int(admin) for admin in (ADMIN).split()] # Exclusive for heroku vars configuration.
+    ADMINS = [int(admin) for admin in (ADMIN).split()]
     API_ID = int("11042778")
     API_HASH = "583227ff3ba18dcd47f89b92fa01e092"
     BOT_TOKEN = "5062201942:AAFqRnF6fxMJfTOHpr7LstDYU2WskY9ug1w"
