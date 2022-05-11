@@ -1,2 +1,0 @@
-deploy:
-  octeto stack deploy --build -f docker-compose.yml
