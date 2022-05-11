@@ -1,2 +1,2 @@
 deploy:
-  - okteto build -t okteto.dev/vcplayerbot:latest
+  octeto stack deploy --build -f docker-compose.yml
