@@ -1,3 +1,6 @@
+build:
+  dockerfile:
+    - Dockerfile
 deploy:
   compose:
     - docker-compose.yml
