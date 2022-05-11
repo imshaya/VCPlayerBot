@@ -1,5 +1,5 @@
 build:
-  dockerfile: Dockerfile
+  dockerfile: - Dockerfile
 deploy:
   compose:
     - docker-compose.yml
