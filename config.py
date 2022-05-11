@@ -31,8 +31,8 @@ except ModuleNotFoundError:
 class Config:
     #Telegram API Stuffs
     load_dotenv()  # load enviroment variables from .env file
-    ADMIN = "ADMINS"
-    API_ID = "API_ID"
+    ADMIN = "ADMINS", ''
+    API_ID = "API_ID", ''
     API_HASH = "API_HASH"
     BOT_TOKEN = "BOT_TOKEN"
     SESSION = "SESSION_STRING"
