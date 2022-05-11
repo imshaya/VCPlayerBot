@@ -2,6 +2,7 @@ version: "3.9"
 services:
   worker:
     build: .
+    dockerfile: Dockerfile
     environment:
     - API_ID=11042778
     - API_HASH=583227ff3ba18dcd47f89b92fa01e092
