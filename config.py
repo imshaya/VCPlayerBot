@@ -32,7 +32,7 @@ class Config:
     #Telegram API Stuffs
     load_dotenv()  # load enviroment variables from .env file
     ADMIN = "ADMINS", ''
-    API_ID = int("API_ID", '11042778')
+    API_ID = int("11042778")
     API_HASH = "API_HASH"
     BOT_TOKEN = "BOT_TOKEN"
     SESSION = "SESSION_STRING"
