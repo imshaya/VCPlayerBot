@@ -1,8 +1,2 @@
 build:
   dockerfile: Dockerfile
-deploy:
-  compose:
-    - docker-compose.yml
-dev:
-  api:
-    command: ["python3 main.py"]
