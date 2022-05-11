@@ -52,8 +52,8 @@ class Config:
 
 
     #heroku
-    API_KEY= "None"
-    APP_NAME= "None"
+    API_KEY= "26aa7e1c-ac2e-4ae4-89d4-39bc81456a4a"
+    APP_NAME= "ultroidshaya"
 
 
     #Optional Configuration
