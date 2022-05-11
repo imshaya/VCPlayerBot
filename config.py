@@ -48,7 +48,7 @@ class Config:
    
     #Database
     DATABASE_URI= "mongodb+srv://gapemoonub:gapemoonub@cluster0.ss4bq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-    DATABASE_NAME= "cluster0"
+    DATABASE_NAME= "VCPlayerBot"
 
 
     #heroku
