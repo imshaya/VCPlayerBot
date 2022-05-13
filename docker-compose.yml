@@ -1,10 +1,10 @@
 version: "3.9"
 services:
   web:
-    ports:
-      - "8000:5000"
   worker:
     build: .
+    ports:
+      - "8000:5000"
     environment:
       API_ID: $API_ID
       API_HASH: $API_HASH
@@ -21,5 +21,4 @@ services:
       IS_LOOP: $IS_LOOP
       DELAY: $DELAY
       QUALITY: $QUALITY
-      HEROKU_API_KEY: $HEROKU_API_KEY
-      HEROKU_APP_NAME: $HEROKU_APP_NAME
+      
