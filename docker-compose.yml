@@ -3,6 +3,8 @@ services:
   web:
     ports:
       - "8000:5000"
+  redis:
+    image: "redis:alpine"
   worker:
     build: .
     environment:
