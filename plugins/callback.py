@@ -114,8 +114,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
             back=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("Back", callback_data="help_main"),
-                        InlineKeyboardButton("Close", callback_data="close"),
+                        InlineKeyboardButton("بازگشت", callback_data="help_main"),
+                        InlineKeyboardButton("بستن", callback_data="close"),
                     ],
                 ]
                 )
@@ -123,19 +123,19 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton(f"Play", callback_data='help_play'),
-                            InlineKeyboardButton(f"Settings", callback_data=f"help_settings"),
-                            InlineKeyboardButton(f"Recording", callback_data='help_record'),
+                            InlineKeyboardButton(f"پلی", callback_data='help_play'),
+                            InlineKeyboardButton(f"تنظیمات کلی", callback_data=f"help_settings"),
+                            InlineKeyboardButton(f"ضبط", callback_data='help_record'),
                         ],
                         [
-                            InlineKeyboardButton("Scheduling", callback_data="help_schedule"),
-                            InlineKeyboardButton("Controling", callback_data='help_control'),
-                            InlineKeyboardButton("Admins", callback_data="help_admin"),
+                            InlineKeyboardButton("زمانبندی", callback_data="help_schedule"),
+                            InlineKeyboardButton("کنترل", callback_data='help_control'),
+                            InlineKeyboardButton("ادمین ها", callback_data="help_admin"),
                         ],
                         [
-                            InlineKeyboardButton(f"Misc", callback_data='help_misc'),
-                            InlineKeyboardButton("Config Vars", callback_data='help_env'),
-                            InlineKeyboardButton("Close", callback_data="close"),
+                            InlineKeyboardButton(f"متفرقه", callback_data='help_misc'),
+                            InlineKeyboardButton("تنظیم متغیر ها", callback_data='help_env'),
+                            InlineKeyboardButton("بستن", callback_data="close"),
                         ],
                     ]
                     )
@@ -194,7 +194,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         else:
                             button.append([InlineKeyboardButton(text=f"{str(month)}  {str(year_)}",callback_data=f"sch_showdate_{year_}_{k}")])
                     button = button + button_
-                    button.append([InlineKeyboardButton("Close", callback_data="schclose")])
+                    button.append([InlineKeyboardButton("بستن", callback_data="schclose")])
                     await query.message.edit("ماه رو انتخاب کنㅤ ㅤㅤ", reply_markup=InlineKeyboardMarkup(button))
                 elif day == "none":
                     return
@@ -222,7 +222,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                         pyear=year-1
                     else:
                         pyear=year
-                    button.append([InlineKeyboardButton("Back", callback_data=f"sch_showdate_{pyear}_{month}"), InlineKeyboardButton("Close", callback_data="schclose")])
+                    button.append([InlineKeyboardButton("بازگشت", callback_data=f"sch_showdate_{pyear}_{month}"), InlineKeyboardButton("بستن", callback_data="schclose")])
                     await query.message.edit(f"حالا ساعته {date} {smonth} {year} برای زمانبندی وویس چت انتخاب کن", reply_markup=InlineKeyboardMarkup(button))
 
             elif data.startswith("sch_day"):
@@ -247,7 +247,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     for d in chunk:
                         k.append(InlineKeyboardButton(text=f"{d}",callback_data=f"sch_minute_{year}_{month}_{day}_{hour}_{d}"))
                     button.append(k)
-                button.append([InlineKeyboardButton("Back", callback_data=f"sch_month_{year}_{month}_{day}"), InlineKeyboardButton("Close", callback_data="schclose")])
+                button.append([InlineKeyboardButton("بازگشت", callback_data=f"sch_month_{year}_{month}_{day}"), InlineKeyboardButton("بستن", callback_data="schclose")])
                 await query.message.edit(f"حالا دقایقه {hour}th ساعات {day} {smonth} {year} برای زمانبندی وویس چت انتخاب کن", reply_markup=InlineKeyboardMarkup(button))
 
             elif data.startswith("sch_minute"):
@@ -265,11 +265,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 final=f"{day}th {smonth} {year} at {hour}:{minute}"
                 button=[
                     [
-                        InlineKeyboardButton("Confirm", callback_data=f"schconfirm_{year}-{month}-{day} {hour}:{minute}"),
-                        InlineKeyboardButton("Back", callback_data=f"sch_day_{year}_{month}_{day}_{hour}")
+                        InlineKeyboardButton("تایید", callback_data=f"schconfirm_{year}-{month}-{day} {hour}:{minute}"),
+                        InlineKeyboardButton("بازگشت", callback_data=f"sch_day_{year}_{month}_{day}_{hour}")
                     ],
                     [
-                        InlineKeyboardButton("Close", callback_data="schclose")
+                        InlineKeyboardButton("بستن", callback_data="schclose")
                     ]
                 ]
                 data=Config.SCHEDULED_STREAM.get(f"{query.message.chat.id}_{query.message.message_id}")
@@ -311,7 +311,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                             k=d
                         f.append(InlineKeyboardButton(text=f"{k}",callback_data=f"sch_month_{year_}_{month}_{d}"))
                     button.append(f)
-                button.append([InlineKeyboardButton("Close", callback_data="schclose")])
+                button.append([InlineKeyboardButton("بستن", callback_data="schclose")])
                 await query.message.edit(f"روز رو انتخاب کن\nToday هستش {thisday} {smonth} {tyear}. انتخابه امروز یا همون تودی میشه امروز خلاصه دیگ... {year+1}", reply_markup=InlineKeyboardMarkup(button))
 
             elif data.startswith("schconfirm"):
