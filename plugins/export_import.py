@@ -44,7 +44,7 @@ admin_filter=filters.create(is_admin)
 @Client.on_message(filters.command(["export", f"export@{Config.BOT_USERNAME}"]) & admin_filter & chat_filter)
 async def export_play_list(client, message: Message):
     if not Config.playlist:
-        k=await message.reply_text("Playlist is Empty")
+        k=await message.reply_text("پلی لیست خالیه")
         await delete_messages([message, k])
         return
     file=f"{message.chat.id}_{message.message_id}.json"
@@ -62,14 +62,14 @@ async def import_playlist(client, m: Message):
     with suppress(MessageIdInvalid, MessageNotModified):
         if m.reply_to_message is not None and m.reply_to_message.document:
             if m.reply_to_message.document.file_name != "PlayList.json":
-                k=await m.reply("Invalid PlayList file given. Export your current Playlist using /export.")
+                k=await m.reply("پلی لیستی ک بهم دادی اشتباهه، میتونی پلی لیسته الانتو خروجی بگیری با دستوره /export.")
                 await delete_messages([m, k])
                 return
             myplaylist=await m.reply_to_message.download()
-            status=await m.reply("Trying to get details from playlist.")
+            status=await m.reply("درحال وارد کردن پلی لیست..")
             n=await import_play_list(myplaylist)
             if not n:
-                await status.edit("Errors Occured while importing playlist.")
+                await status.edit("حین وارد کردن پلی لیست ب مشکل برخوردم")
                 await delete_messages([m, status])
                 return
             if Config.SHUFFLE:
@@ -85,5 +85,5 @@ async def import_playlist(client, m: Message):
             else:
                 await delete_messages([m, status])
         else:
-            k = await m.reply("No playList file given.")
+            k = await m.reply("هیچ فایلی ندادی ک ع توش پلی لیست بگیرم")
             await delete_messages([m, k])
