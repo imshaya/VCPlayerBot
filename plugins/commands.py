@@ -335,7 +335,7 @@ async def set_heroku_var(client, message):
                     return
         else:
             if not Config.HEROKU_APP:
-                buttons = [[InlineKeyboardButton('Heroku API_KEY', url='https://dashboard.heroku.com/account/applications/authorizations/new'), InlineKeyboardButton('🗑 Close', callback_data='close'),]]
+                buttons = [[InlineKeyboardButton('Heroku API_KEY', url='https://dashboard.heroku.com/account/applications/authorizations/new'), InlineKeyboardButton('🗑 بستن', callback_data='close'),]]
                 await m.edit(
                     text="برنامه ی هیروکویی یافت نشد، برای استفاده از این دستور، قبلش باید این مقادیرو حاظر کرده باشید\n\n1. <code>HEROKU_API_KEY</code>: کد ای پی عایه اکه هیروکو\n2. <code>HEROKU_APP_NAME</code>: نام برنامه ی هیروکو", 
                     reply_markup=InlineKeyboardMarkup(buttons)) 
