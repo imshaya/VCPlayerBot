@@ -1,2 +1,2 @@
-sudo apt update && sudo apt install ffmpeg
-sudo apt-get update && sudo apt-get install ffprobe
+sudo apt update && apt upgrade -y
+sudo apt install ffmpeg -y
