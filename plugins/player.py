@@ -80,24 +80,24 @@ async def add_to_playlist(_, message: Message):
         url=""
         if message.command[0] == "fplay":
             if not (message.from_user is None and message.sender_chat or message.from_user.id in admins):
-                k=await message.reply("This command is only for admins.")
+                k=await message.reply("این دستور مختص ادمین هاس")
                 await delete_messages([message, k])
                 return
-        msg = await message.reply_text("⚡️ **Checking recived input..**")
+        msg = await message.reply_text("⚡️ **بررسی ورودی...**")
         if message.reply_to_message and message.reply_to_message.video:
-            await msg.edit("⚡️ **Checking Telegram Media...**")
+            await msg.edit("⚡️ **بررسی رسانه ی تلگرامی..**")
             type='video'
             m_video = message.reply_to_message.video       
         elif message.reply_to_message and message.reply_to_message.document:
-            await msg.edit("⚡️ **Checking Telegram Media...**")
+            await msg.edit("⚡️ **بررسی رسانه ی تلگرامی..**")
             m_video = message.reply_to_message.document
             type='video'
             if not "video" in m_video.mime_type:
-                return await msg.edit("The given file is invalid")
+                return await msg.edit("فایلی ک دادی اشتباهه")
         elif message.reply_to_message and message.reply_to_message.audio:
             #if not Config.IS_VIDEO:
-                #return await message.reply("Play from audio file is available only if Video Mode if turned off.\nUse /settings to configure ypur player.")
-            await msg.edit("⚡️ **Checking Telegram Media...**")
+                #return await message.reply("پلی کردن فایل موسیقی فق وقتی ک ویدیو خاموش باشه امکان پذیره.\nUse /settings برای تنظیم پلیر.")
+            await msg.edit("⚡️ **بررسی رسانه ی تلگرامی..**")
             type='audio'
             m_video = message.reply_to_message.audio       
         else:
@@ -107,7 +107,7 @@ async def add_to_playlist(_, message: Message):
                 text = message.text.split(" ", 1)
                 query = text[1]
             else:
-                await msg.edit("You Didn't gave me anything to play.Reply to a video or a youtube link or a direct link.")
+                await msg.edit("بهم هیچی برا پلی کردن ندادی، یا بینک مستقیم بهم بده، یا روش ریپلای کن، یا از لینکه یوتوب استفاده کن")
                 await delete_messages([message, msg])
                 return
             regex = r"^(?:https?:\/\/)?(?:www\.)?youtu\.?be(?:\.com)?\/?.*(?:watch|embed)?(?:.*v=|v\/|\/)([\w\-_]+)\&?"
@@ -127,7 +127,7 @@ async def add_to_playlist(_, message: Message):
                     except:
                         dur=0
                     if dur == 0:
-                        await msg.edit("This is a live stream, Use /stream command.")
+                        await msg.edit("این استریم زندس پس از این دستور /stream استفاده کن")
                         await delete_messages([message, msg])
                         return 
                     type="direct"
@@ -137,7 +137,7 @@ async def add_to_playlist(_, message: Message):
                         type="ytdl_s"
                         url=query
                     else:
-                        await msg.edit("This is an invalid link, provide me a direct link or a youtube link.")
+                        await msg.edit("این لینک اشتباهه، یا بهم لینک مستقیم بده یا لینک یوتوب")
                         await delete_messages([message, msg])
                         return
             else:
@@ -183,21 +183,21 @@ async def add_to_playlist(_, message: Message):
             else:
                 Config.playlist.append(data)
             await add_to_db_playlist(data)        
-            await msg.edit("Media added to playlist")
+            await msg.edit("رسانه ب پلی لیست اضافه شد")
         elif type in ["youtube", "query", "ytdl_s"]:
             if type=="youtube":
-                await msg.edit("⚡️ **Fetching Video From YouTube...**")
+                await msg.edit("⚡️ **جذب ویدیو از یوتوب**")
                 url=yturl
             elif type=="query":
                 try:
-                    await msg.edit("⚡️ **Fetching Video From YouTube...**")
+                    await msg.edit("⚡️ **جذب ویدیو از یوتوب**")
                     ytquery=ysearch
                     results = YoutubeSearch(ytquery, max_results=1).to_dict()
                     url = f"https://youtube.com{results[0]['url_suffix']}"
                     title = results[0]["title"][:40]
                 except Exception as e:
                     await msg.edit(
-                        "Song not found.\nTry inline mode.."
+                        "موزیک پیدا نشد.\nاز اینلاین استفاده کن"
                     )
                     LOGGER.error(str(e), exc_info=True)
                     await delete_messages([message, msg])
@@ -217,7 +217,7 @@ async def add_to_playlist(_, message: Message):
             except Exception as e:
                 LOGGER.error(e, exc_info=True)
                 await msg.edit(
-                    f"YouTube Download Error ❌\nError:- {e}"
+                    f"مشکل دانلود از یوتوب ❌\nError:- {e}"
                     )
                 LOGGER.error(str(e))
                 await delete_messages([message, msg])
@@ -231,7 +231,7 @@ async def add_to_playlist(_, message: Message):
             else:
                 title = info["title"]
                 if info['duration'] is None:
-                    await msg.edit("This is a live stream, Use /stream command.")
+                    await msg.edit("این استریم زندس پس ع این دستور استفاده کن /stream استفاده کن")
                     await delete_messages([message, msg])
                     return 
             data={1:title, 2:url, 3:"youtube", 4:user, 5:f"{nyav}_{user_id}"}
@@ -241,7 +241,7 @@ async def add_to_playlist(_, message: Message):
             else:
                 Config.playlist.append(data)
             await add_to_db_playlist(data)
-            await msg.edit(f"[{title}]({url}) added to playist", disable_web_page_preview=True)
+            await msg.edit(f"[{title}]({url}) ب پلی لیست اضافه شد", disable_web_page_preview=True)
         elif type == "direct":
             data={1:"Music", 2:url, 3:"url", 4:user, 5:f"{nyav}_{user_id}"}
             if message.command[0] == "fplay":
@@ -250,18 +250,18 @@ async def add_to_playlist(_, message: Message):
             else:
                 Config.playlist.append(data)
             await add_to_db_playlist(data)        
-            await msg.edit("Link added to playlist")
+            await msg.edit("لینک ب پلی لیست اضافه شد")
         if not Config.CALL_STATUS \
             and len(Config.playlist) >= 1:
-            await msg.edit("Downloading and Processing...")
+            await msg.edit("درحال دانلود..")
             await download(Config.playlist[0], msg)
             await play()
         elif (len(Config.playlist) == 1 and Config.CALL_STATUS):
-            await msg.edit("Downloading and Processing...")
+            await msg.edit("درحال دانلود..")
             await download(Config.playlist[0], msg)  
             await play()
         elif message.command[0] == "fplay":
-            await msg.edit("Downloading and Processing...")
+            await msg.edit("درحال دانلود..")
             await download(Config.playlist[0], msg)  
             await play()
         else:
@@ -282,11 +282,11 @@ async def add_to_playlist(_, message: Message):
 @Client.on_message(filters.command(["leave", f"leave@{Config.BOT_USERNAME}"]) & admin_filter & chat_filter)
 async def leave_voice_chat(_, m: Message):
     if not Config.CALL_STATUS:        
-        k=await m.reply("Not joined any voicechat.")
+        k=await m.reply("تو هیچ وویس چتی نیستم")
         await delete_messages([m, k])
         return
     await leave_call()
-    k=await m.reply("Succesfully left videochat.")
+    k=await m.reply("ع وویس چت لف دادم")
     await delete_messages([m, k])
 
 
@@ -294,27 +294,27 @@ async def leave_voice_chat(_, m: Message):
 @Client.on_message(filters.command(["shuffle", f"shuffle@{Config.BOT_USERNAME}"]) & admin_filter & chat_filter)
 async def shuffle_play_list(client, m: Message):
     if not Config.CALL_STATUS:
-        k = await m.reply("Not joined any voicechat.")
+        k = await m.reply("تو هیچ وویس چتی نیستم")
         await delete_messages([m, k])
         return
     else:
         if len(Config.playlist) > 2:
-            k=await m.reply_text(f"Playlist Shuffled.")
+            k=await m.reply_text(f"پلی لیست در هم شد")
             await shuffle_playlist()
             await delete_messages([m, k])            
         else:
-            k=await m.reply_text(f"You cant shuffle playlist with less than 3 songs.")
+            k=await m.reply_text(f"نمیتونی پلی لیست کمتر از ۴ فایل رو روی حالته پخش در هم بزاری")
             await delete_messages([m, k])
 
 
 @Client.on_message(filters.command(["clearplaylist", f"clearplaylist@{Config.BOT_USERNAME}"]) & admin_filter & chat_filter)
 async def clear_play_list(client, m: Message):
     if not Config.playlist:
-        k = await m.reply("Playlist is empty.")  
+        k = await m.reply("پلی لیست خالیه")  
         await delete_messages([m, k])
         return
     Config.playlist.clear()
-    k=await m.reply_text(f"Playlist Cleared.")
+    k=await m.reply_text(f"پلی لیست خالی شد")
     await clear_db_playlist(all=True)
     if Config.IS_LOOP \
         and not (Config.YPLAY or Config.CPLAY):
@@ -328,61 +328,61 @@ async def clear_play_list(client, m: Message):
 @Client.on_message(filters.command(["cplay", f"cplay@{Config.BOT_USERNAME}"]) & admin_filter & chat_filter)
 async def channel_play_list(client, m: Message):
     with suppress(MessageIdInvalid, MessageNotModified):
-        k=await m.reply("Setting up for channel play..")
+        k=await m.reply("تنظیم برای پلی از چنل..")
         if " " in m.text:
             you, me = m.text.split(" ", 1)
             if me.startswith("-100"):
                 try:
                     me=int(me)
                 except:
-                    await k.edit("Invalid chat id given")
+                    await k.edit("عای دی عددی اشتباهه!")
                     await delete_messages([m, k])
                     return
                 try:
                     await client.get_chat_member(int(me), Config.USER_ID)
                 except (ValueError, PeerIdInvalid, ChannelInvalid):
                     LOGGER.error(f"Given channel is private and @{Config.BOT_USERNAME} is not an admin over there.", exc_info=True)
-                    await k.edit(f"Given channel is private and @{Config.BOT_USERNAME} is not an admin over there. If channel is not private , please provide username of channel.")
+                    await k.edit(f"چنلی ک دادی خصوصیه و @{Config.BOT_USERNAME} ادمینش نیست، اگ چنلی پرایوته، لطفن یا عای دی عددیشو بدید یا ادساینیش")
                     await delete_messages([m, k])
                     return
                 except UserNotParticipant:
                     LOGGER.error("Given channel is private and USER account is not a member of channel.")
-                    await k.edit("Given channel is private and USER account is not a member of channel.")
+                    await k.edit("چنلی ک دادی خصوصیه و ربات عضوی ازش نیس")
                     await delete_messages([m, k])
                     return
                 except Exception as e:
                     LOGGER.error(f"Errors occured while getting data abount channel - {e}", exc_info=True)
-                    await k.edit(f"Something went wrong- {e}")
+                    await k.edit(f"یچیزی اشتب شد- {e}")
                     await delete_messages([m, k])
                     return
-                await k.edit("Searching files from channel, this may take some time, depending on number of files in the channel.")
+                await k.edit("جستجوی فایل های چنل، ممکن زمان ببره، بستگی ب تعداد فایل های چنل داره")
                 st, msg = await c_play(me)
                 if st == False:
                     await m.edit(msg)
                 else:
-                    await k.edit(f"Succesfully added {msg} files to playlist.")
+                    await k.edit(f"با موفقیت {msg} فایل ها ب پلی لیست اضافه شدن")
             elif me.startswith("@"):
                 me = me.replace("@", "")
                 try:
                     chat=await client.get_chat(me)
                 except Exception as e:
                     LOGGER.error(f"Errors occured while fetching info about channel - {e}", exc_info=True)
-                    await k.edit(f"Errors occured while getting data about channel - {e}")
+                    await k.edit(f"موقع گرفتن اطلاعات چنل، مشکلی پیشومد - {e}")
                     await delete_messages([m, k])
                     return
-                await k.edit("Searching files from channel, this may take some time, depending on number of files in the channel.")
+                await k.edit("جستجوی فایل های چنل شروع شد، ممکن زمان ببره، بستگی ب تعداد فایل های چنل داره")
                 st, msg=await c_play(me)
                 if st == False:
                     await k.edit(msg)
                     await delete_messages([m, k])
                 else:
-                    await k.edit(f"Succesfully Added {msg} files from {chat.title} to playlist")
+                    await k.edit(f"با موفقیت {msg} اضافه شدن، فایل ها از {chat.title} to playlist")
                     await delete_messages([m, k])
             else:
-                await k.edit("The given channel is invalid. For private channels it should start with -100 and for public channels it should start with @\nExamples - `/cplay @VCPlayerFiles or /cplay -100125369865\n\nFor private channel, both bot and the USER account should be members of channel.")
+                await k.edit("چنل اشتباهه، برای چنل های خصوصی باید شروع بشه با -100 و برای چنل های عمومی @\nمثال - `/cplay @HuB_BaX یا /cplay -100125369865\n\nبرای چنل های خصوصی ، ربات و یوزرش جفتشون باید عضوی از چنل بزنید")
                 await delete_messages([m, k])
         else:
-            await k.edit("You didn't gave me any channel. Give me a channel id or username from which i should play files . \nFor private channels it should start with -100 and for public channels it should start with @\nExamples - `/cplay @VCPlayerFiles or /cplay -100125369865\n\nFor private channel, both bot and the USER account should be members of channel.")
+            await k.edit("ی چنلی بده ک درست باشه بتونم فایلاشو استفاده کنم \nبرای چنل های شخصی باید اینجوری شروع بشه -100 و برای چنل های عمومی اینجوری باید شروع بشه @\nمثال - `/cplay @HuB_BaX یا /cplay -100125369865\n\nبرای چنل های خصوصی، هم ربات هم یوزرش باید عوضی از چنل باشن")
             await delete_messages([m, k])
 
 
@@ -392,14 +392,14 @@ async def yt_play_list(client, m: Message):
     with suppress(MessageIdInvalid, MessageNotModified):
         if m.reply_to_message is not None and m.reply_to_message.document:
             if m.reply_to_message.document.file_name != "YouTube_PlayList.json":
-                k=await m.reply("Invalid PlayList file given. Use @GetPlayListBot  or search for a playlist in @DumpPlaylist to get a playlist file.")
+                k=await m.reply("پلی لیست اشتباه از این بات استفاده کن @GetPlayListBot  یا پلی لیستو اینجا سرچ کن @DumpPlaylist ")
                 await delete_messages([m, k])
                 return
             ytplaylist=await m.reply_to_message.download()
-            status=await m.reply("Trying to get details from playlist.")
+            status=await m.reply("درحال اضافه کردن پلی لیست")
             n=await import_play_list(ytplaylist)
             if not n:
-                await status.edit("Errors Occured while importing playlist.")
+                await status.edit("اضافه کردن پلی لیست با مشکل مواجه شد")
                 await delete_messages([m, status])
                 return
             if Config.SHUFFLE:
@@ -415,21 +415,21 @@ async def yt_play_list(client, m: Message):
             else:
                 await delete_messages([m, status])
         else:
-            k=await m.reply("No playList file given. Use @GetPlayListBot  or search for a playlist in @DumpPlaylist to get a playlist file.")
+            k=await m.reply("هیچ فایل پلی لیستی وجود نداره، یا از این ربات استفاده کن @GetPlayListBot  یا اینجا پلی لیستو سرچ کن @DumpPlaylist ")
             await delete_messages([m, k])
 
 
 @Client.on_message(filters.command(["stream", f"stream@{Config.BOT_USERNAME}"]) & admin_filter & chat_filter)
 async def stream(client, m: Message):
     with suppress(MessageIdInvalid, MessageNotModified):
-        msg=await m.reply("Checking the recived input.")
+        msg=await m.reply("بررسی ورودی")
         if m.reply_to_message and m.reply_to_message.text:
             link=m.reply_to_message.text
         elif " " in m.text:
             text = m.text.split(" ", 1)
             link = text[1]
         else:
-            k = await msg.edit("Provide a link to stream!")
+            k = await msg.edit("برای استریم، ی لینک بده")
             await delete_messages([m, k])
             return
         regex = r"^(?:https?:\/\/)?(?:www\.)?youtu\.?be(?:\.com)?\/?.*(?:watch|embed)?(?:.*v=|v\/|\/)([\w\-_]+)\&?"
@@ -437,7 +437,7 @@ async def stream(client, m: Message):
         if match:
             stream_link=await get_link(link)
             if not stream_link:
-                k = await msg.edit("This is an invalid link.")
+                k = await msg.edit("این لینک اشتباهه")
                 await delete_messages([m, k])
                 return
         else:
@@ -448,7 +448,7 @@ async def stream(client, m: Message):
             is_audio_ = False
             LOGGER.error("Unable to get Audio properties within time.")
         if not is_audio_:
-            k = await msg.edit("This is an invalid link, provide me a direct link or a youtube link.")
+            k = await msg.edit("این لینک اشتباهه، یا بهم لینک مستقیم بده یا یوتوب")
             await delete_messages([m, k])
             return
         try:
@@ -456,7 +456,7 @@ async def stream(client, m: Message):
         except:
             dur=0
         if dur != 0:
-            k = await msg.edit("This is not a live stream, Use /play command.")
+            k = await msg.edit("این ی استریم زنده نیس از این دستور استفاده کن /play ")
             await delete_messages([m, k])
             return
         k, msg_=await stream_from_link(stream_link)
@@ -482,7 +482,7 @@ allcmd = ["play", "player", f"play@{Config.BOT_USERNAME}", f"player@{Config.BOT_
 
 @Client.on_message(filters.command(admincmds) & ~admin_filter & chat_filter)
 async def notforu(_, m: Message):
-    k = await _.send_cached_media(chat_id=m.chat.id, file_id="CAADBQADEgQAAtMJyFVJOe6-VqYVzAI", caption="You Are Not Authorized", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('چنل', url='https://t.me/hub_bax')]]))
+    k = await _.send_cached_media(chat_id=m.chat.id, file_id="CAADBQADEgQAAtMJyFVJOe6-VqYVzAI", caption="شما مجاز نیستید", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('چنل', url='https://t.me/hub_bax')]]))
     await delete_messages([m, k])
 
 @Client.on_message(filters.command(allcmd) & ~chat_filter & filters.group)
@@ -490,13 +490,13 @@ async def not_chat(_, m: Message):
     if m.from_user is not None and m.from_user.id in Config.SUDO:
         buttons = [
             [
-                InlineKeyboardButton('⚡️Change CHAT', callback_data='set_new_chat'),
+                InlineKeyboardButton('⚡️تغییر گروه', callback_data='set_new_chat'),
             ],
             [
-                InlineKeyboardButton('No', callback_data='closesudo'),
+                InlineKeyboardButton('ن', callback_data='closesudo'),
             ]
             ]
-        await m.reply("This is not the group which i have been configured to play, Do you want to set this group as default CHAT?", reply_markup=InlineKeyboardMarkup(buttons))
+        await m.reply("میخای گروهو به پیشفرض اضافه کنی؟", reply_markup=InlineKeyboardMarkup(buttons))
         await delete_messages([m])
     else:
         buttons = [
