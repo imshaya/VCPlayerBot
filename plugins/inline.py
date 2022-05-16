@@ -58,7 +58,7 @@ async def search(client, query):
         await client.answer_inline_query(
             query.id,
             results=answers,
-            switch_pm_text=("جستجوی ویدیوی یوتوب"),
+            switch_pm_text=("Search a youtube video"),
             switch_pm_parameter="help",
             cache_time=0
         )
@@ -87,7 +87,7 @@ async def search(client, query):
             await query.answer(
                 results=answers,
                 cache_time=0,
-                switch_pm_text=("چیزی پیدا نشد"),
+                switch_pm_text=("Nothing found"),
                 switch_pm_parameter="",
             )
 
