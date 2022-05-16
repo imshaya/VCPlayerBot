@@ -30,7 +30,7 @@ from utils import (
 async def add_admin(client, message):
     if message.reply_to_message:
         if message.reply_to_message.from_user.id is None:
-            k = await message.reply("ت ی ادمین مخفی ای، نمیتونی این کارو کنی")
+            k = await message.reply("You are an anonymous admin, you can't do this.")
             await delete_messages([message, k])
             return
         user_id=message.reply_to_message.from_user.id
@@ -43,8 +43,8 @@ async def add_admin(client, message):
             try:
                 user=await client.get_users(user)
             except Exception as e:
-                k=await message.reply(f"من نمیتونم این یوزرو پیدا کنم.\nError: {e}")
-                LOGGER.error(f"نمیشه یوزرو پیدا کرد - {e}", exc_info=True)
+                k=await message.reply(f"I was unable to locate that user.\nError: {e}")
+                LOGGER.error(f"Unable to find the user - {e}", exc_info=True)
                 await delete_messages([message, k])
                 return
             user_id=user.id
@@ -53,19 +53,19 @@ async def add_admin(client, message):
                 user_id=int(user)
                 user=await client.get_users(user_id)
             except:
-                k=await message.reply(f"یا باید عای دی عددیشو بدی، یا عای دی ادساینیش.")
+                k=await message.reply(f"You should give a user id or his username with @.")
                 await delete_messages([message, k])
                 return
     else:
-        k=await message.reply("یوزری تعیین نشده، ریپلای کن روش با این دستور /vcpromote یا از ای دیش استفاده کن")
+        k=await message.reply("No user specified, reply to a user with /vcpromote or pass a users user id or username.")
         await delete_messages([message, k])
         return
     if user_id in Config.ADMINS:
-        k = await message.reply("ع قبل ادمینه") 
+        k = await message.reply("This user is already an admin.") 
         await delete_messages([message, k])
         return
     Config.ADMINS.append(user_id)
-    k=await message.reply(f"ارتقا پیدا کرد {user.mention} بعنوان ادمین وویس چت")
+    k=await message.reply(f"Succesfully promoted {user.mention} as VC admin")
     await sync_to_db()
     await delete_messages([message, k])
 
@@ -74,7 +74,7 @@ async def add_admin(client, message):
 async def remove_admin(client, message):
     if message.reply_to_message:
         if message.reply_to_message.from_user.id is None:
-            k = await message.reply("ت ی ادمین مخفی ای، نمیتونی همچین گوهی بخوری")
+            k = await message.reply("You are an anonymous admin, you can't do this.")
             await delete_messages([message, k])
             return
         user_id=message.reply_to_message.from_user.id
@@ -86,8 +86,8 @@ async def remove_admin(client, message):
             try:
                 user=await client.get_users(user)
             except Exception as e:
-                k = await message.reply(f"من نمیتونم این یزرو پیدا کنم.\nError: {e}")
-                LOGGER.error(f"ناتوان در پیدا کردن یوزر, {e}", exc_info=True)
+                k = await message.reply(f"I was unable to locate that user.\nError: {e}")
+                LOGGER.error(f"Unable to Locate user, {e}", exc_info=True)
                 await delete_messages([message, k])
                 return
             user_id=user.id
@@ -96,19 +96,19 @@ async def remove_admin(client, message):
                 user_id=int(user)
                 user=await client.get_users(user_id)
             except:
-                k = await message.reply(f"یا باید بهم ای دی عددی بدی یا عای دی ادساینیش")
+                k = await message.reply(f"You should give a user id or his username with @.")
                 await delete_messages([message, k])
                 return
     else:
-        k = await message.reply("هیچ یوزری تعیین نشده، ریپلای کن روش با این دستور /vcdemote یا عای دیشو بهم بده")
+        k = await message.reply("No user specified, reply to a user with /vcdemote or pass a users user id or username.")
         await delete_messages([message, k])
         return
     if not user_id in Config.ADMINS:
-        k = await message.reply("ع قبل ادمین نبود")
+        k = await message.reply("This user is not an admin yet.")
         await delete_messages([message, k])
         return
     Config.ADMINS.remove(user_id)
-    k = await message.reply(f"عزل شد {user.mention}")
+    k = await message.reply(f"Succesfully Demoted {user.mention}")
     await sync_to_db()
     await delete_messages([message, k])
 
@@ -117,6 +117,6 @@ async def remove_admin(client, message):
 async def refresh_admins(client, message):
     Config.ADMIN_CACHE=False
     await get_admins(Config.CHAT)
-    k = await message.reply("لیست ادمین ها پیکربندی شد")
+    k = await message.reply("Admin list has been refreshed")
     await sync_to_db()
     await delete_messages([message, k])
