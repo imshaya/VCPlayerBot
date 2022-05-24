@@ -541,7 +541,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 if query.from_user is None:
                     return await query.answer("اینجا نمیتونم برات کاری بکنم بصیک پی", show_alert=True)
                 if query.from_user.id in Config.SUDO:
-                    await query.answer(تنظیمه گپه جدید")
+                    await query.answer("تنظیمه گپه جدید")
                     chat=query.message.chat.id
                     if Config.IS_RECORDING:
                         await stop_recording()
