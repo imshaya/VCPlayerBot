@@ -1793,9 +1793,9 @@ def convert(seconds):
 
 def get_pause(status):
     if status == True:
-        return "Resume"
+        return "شروع"
     else:
-        return "Pause"
+        return "استوپ"
 
 #https://github.com/pytgcalls/pytgcalls/blob/dev/pytgcalls/types/input_stream/video_tools.py#L27-L38
 def resize_ratio(w, h, factor):
