@@ -47,28 +47,28 @@ debug = Client(
 @debug.on_message(filters.command(['env', f"env@{Config.BOT_USERNAME}", "config", f"config@{Config.BOT_USERNAME}"]) & filters.private & filters.user(Config.ADMINS))
 async def set_heroku_var(client, message):
     if message.from_user.id not in Config.SUDO:
-        return await message.reply(f"/env command can only be used by creator of the bot, ({str(Config.SUDO)})")
+        return await message.reply(f"/env این دستور فقط توسط سازنده ی ربات قابل اجراس, ({str(Config.SUDO)})")
     with suppress(MessageIdInvalid, MessageNotModified):
-        m = await message.reply("Checking config vars..")
+        m = await message.reply("چک کردن کانفیگ..")
         if " " in message.text:
             cmd, env = message.text.split(" ", 1)
             if  not "=" in env:
-                await m.edit("You should specify the value for env.\nExample: /env CHAT=-100213658211")
+                await m.edit("شما باید شناسه ای رو برای کانفیگ در نظر بگیرید env.\nمثال: /env CHAT=-100213658211")
                 return
             var, value = env.split("=", 1)
         else:
-            await m.edit("You haven't provided any value for env, you should follow the correct format.\nExample: <code>/env CHAT=-1020202020202</code> to change or set CHAT var.\n<code>/env REPLY_MESSAGE= <code>To delete REPLY_MESSAGE.")
+            await m.edit("شما هیچ شناسه ای به کانفیگ ندادید")
             return
 
         if Config.DATABASE_URI and var in ["STARTUP_STREAM", "CHAT", "LOG_GROUP", "REPLY_MESSAGE", "DELAY", "RECORDING_DUMP"]:      
-            await m.edit("Mongo DB Found, Setting up config vars...") 
+            await m.edit("دیتابیس پیدا شد، در حاله تنظیمه کانفیگ..") 
             if not value:
-                await m.edit(f"No value for env specified. Trying to delete env {var}.")
+                await m.edit(f"هیچ شناسه ای برای کانفیگه مورد نظر وجورد نداره پس پاکش کن {var}.")
                 if var in ["STARTUP_STREAM", "CHAT", "DELAY"]:
-                    await m.edit("This is a mandatory var and cannot be deleted.")
+                    await m.edit("اینا کانفیگ های سیستمین نمیتونی پاکشون کنی")
                     return
                 await edit_config(var, False)
-                await m.edit(f"Sucessfully deleted {var}")
+                await m.edit(f"کانفیگ با موفقیت پاک شد {var}")
            
                 return
             else:
@@ -76,39 +76,39 @@ async def set_heroku_var(client, message):
                     try:
                         value=int(value)
                     except:
-                        await m.edit("You should give me a chat id . It should be an interger.")
+                        await m.edit("باید بهم عای دی عددی گپو بدی")
         
                         return
                     if var == "CHAT":
                         Config.ADMIN_CACHE=False
                         Config.CHAT=int(value)
                     await edit_config(var, int(value))
-                    await m.edit(f"Succesfully changed {var} to {value}")
+                    await m.edit(f"این کانفیگ {var} با موفقیت به این شناسه کانکت شد {value}")
     
                     return
                 else:
                     if var == "STARTUP_STREAM":
                         Config.STREAM_SETUP=False
                     await edit_config(var, value)
-                    await m.edit(f"Succesfully changed {var} to {value}")
+                    await m.edit(f"این کانفیگ {var} با موفقیت ب این شناسه کانکت شد {value}")
                     return
         else:
             if not Config.HEROKU_APP:
-                buttons = [[InlineKeyboardButton('Heroku API_KEY', url='https://dashboard.heroku.com/account/applications/authorizations/new'), InlineKeyboardButton('🗑 Close', callback_data='close'),]]
+                buttons = [[InlineKeyboardButton('Heroku API_KEY', url='https://dashboard.heroku.com/account/applications/authorizations/new'), InlineKeyboardButton('🗑 بستن', callback_data='close'),]]
                 await m.edit(
-                    text="No heroku app found, this command needs the following heroku vars to be set.\n\n1. <code>HEROKU_API_KEY</code>: Your heroku account api key.\n2. <code>HEROKU_APP_NAME</code>: Your heroku app name.", 
+                    text="هیچ برنامه ی هیروکویی یافت نشد", 
                     reply_markup=InlineKeyboardMarkup(buttons)) 
                 return     
             config = Config.HEROKU_APP.config()
             if not value:
-                await m.edit(f"No value for env specified. Trying to delete env {var}.")
+                await m.edit(f"هیچ شناسه ای برای کانفیگ مورد نظر پیدا نشد پس پاکش کن {var}.")
                 if var in ["STARTUP_STREAM", "CHAT", "DELAY", "API_ID", "API_HASH", "BOT_TOKEN", "SESSION_STRING", "ADMINS"]:
-                    await m.edit("These are mandatory vars and cannot be deleted.")
+                    await m.edit("اینا کانفیگای سیستمین نمیتونی تغییرشون بدی یا حذفشون کنی")
     
                     return
                 if var in config:
-                    await m.edit(f"Sucessfully deleted {var}")
-                    await m.edit("Now restarting the app to make changes.")
+                    await m.edit(f"این کانفیگ با موفقیت حذف شد {var}")
+                    await m.edit("درحاله ریست ربات، برای اعمال تغییرات")
                     if Config.DATABASE_URI:
                         msg = {"msg_id":m.message_id, "chat_id":m.chat.id}
                         if not await db.is_saved("RESTART"):
@@ -118,13 +118,13 @@ async def set_heroku_var(client, message):
                     del config[var]                
                     config[var] = None               
                 else:
-                    k = await m.edit(f"No env named {var} found. Nothing was changed.")
+                    k = await m.edit(f"هیچ کانفیگی با این اسم {var} پیدا نشد، پس چیزیم تغییر نکرد")
                 return
             if var in config:
-                await m.edit(f"Variable already found. Now edited to {value}")
+                await m.edit(f"درحاله حاظر این کانفیگ پیدا شد و تغییر پیدا کرد به {value}")
             else:
-                await m.edit(f"Variable not found, Now setting as new var.")
-            await m.edit(f"Succesfully set {var} with value {value}, Now Restarting to take effect of changes...")
+                await m.edit(f"همچین کانفیگی پیدا نشد، پس یکی جدیدشو ساختیم")
+            await m.edit(f"با موفقیت {var} ساخته شد با شناسه ی {value}, در حاله ریست ربات، برای اعمال تغییرات")
             if Config.DATABASE_URI:
                 msg = {"msg_id":m.message_id, "chat_id":m.chat.id}
                 if not await db.is_saved("RESTART"):
@@ -135,7 +135,7 @@ async def set_heroku_var(client, message):
 
 @debug.on_message(filters.command(["restart", f"restart@{Config.BOT_USERNAME}"]) & filters.private & filters.user(Config.ADMINS))
 async def update(bot, message):
-    m=await message.reply("Restarting with new changes..")
+    m=await message.reply("ریست با تغییرات جدید..")
     if Config.DATABASE_URI:
         msg = {"msg_id":m.message_id, "chat_id":m.chat.id}
         if not await db.is_saved("RESTART"):
@@ -152,18 +152,18 @@ async def update(bot, message):
 @debug.on_message(filters.command(["clearplaylist", f"clearplaylist@{Config.BOT_USERNAME}"]) & filters.private & filters.user(Config.ADMINS))
 async def clear_play_list(client, m: Message):
     if not Config.playlist:
-        k = await m.reply("Playlist is empty.")  
+        k = await m.reply("پلی لیست خالیه")  
         return
     Config.playlist.clear()
-    k=await m.reply_text(f"Playlist Cleared.")
+    k=await m.reply_text(f"پلی لیست خالی شد")
     await clear_db_playlist(all=True)
 
     
 @debug.on_message(filters.command(["skip", f"skip@{Config.BOT_USERNAME}"]) & filters.private & filters.user(Config.ADMINS))
 async def skip_track(_, m: Message):
-    msg=await m.reply('trying to skip from queue..')
+    msg=await m.reply('درحاله رد کردن..')
     if not Config.playlist:
-        await msg.edit("Playlist is Empty.")
+        await msg.edit("پلی لیست خالیه")
         return
     if len(m.command) == 1:
         old_track = Config.playlist.pop(0)
@@ -176,29 +176,29 @@ async def skip_track(_, m: Message):
             items.sort(reverse=True)
             for i in items:
                 if 2 <= i <= (len(Config.playlist) - 1):
-                    await msg.edit(f"Succesfully Removed from Playlist- {i}. **{Config.playlist[i][1]}**")
+                    await msg.edit(f"با موفقیت از پلی لیست پاک شد- {i}. **{Config.playlist[i][1]}**")
                     await clear_db_playlist(song=Config.playlist[i])
                     Config.playlist.pop(i)
                 else:
-                    await msg.edit(f"You cant skip first two songs- {i}")
+                    await msg.edit(f"دو مورد اول رو نمیتونی رد کنی- {i}")
         except (ValueError, TypeError):
-            await msg.edit("Invalid input")
+            await msg.edit("ورودی نامعتبر")
     pl=await get_playlist_str()
     await msg.edit(pl, disable_web_page_preview=True)
 
 
 @debug.on_message(filters.command(['logs', f"logs@{Config.BOT_USERNAME}"]) & filters.private & filters.user(Config.ADMINS))
 async def get_logs(client, message):
-    m=await message.reply("Checking logs..")
+    m=await message.reply("چک کردنه لاگ..")
     if os.path.exists("botlog.txt"):
-        await message.reply_document('botlog.txt', caption="Bot Logs")
+        await message.reply_document('botlog.txt', caption="لاگ های ربات")
         await m.delete()
     else:
-        k = await m.edit("No log files found.")
+        k = await m.edit("هیچ فایله لاگی پیدا نشد")
 
 @debug.on_message(filters.text & filters.private)
 async def reply_else(bot, message):
-    await message.reply(f"Development mode is activated.\nThis occures when there are some errors in startup of the bot.\nOnly Configuration commands works in development mode.\nAvailabe commands are /env, /skip, /clearplaylist and /restart and /logs\n\n**The cause for activation of development mode was**\n\n`{str(Config.STARTUP_ERROR)}`")
+    await message.reply(f"حالته سیف مود فعال شد\nموقعی ک مشکلی توی راه اندازی ربات پیش بیاد این اتفاق میفته\nفقط دستوراته اصلی قابله اجراس\nAدستورای قابل اجرا توی سیف مود اینان: /env, /skip, /clearplaylist و /restart و /logs\n\n**علته این ماجرا:**\n\n`{str(Config.STARTUP_ERROR)}`")
 
 def stop_and_restart():
     os.system("git pull")
@@ -207,19 +207,19 @@ def stop_and_restart():
 
 async def get_playlist_str():
     if not Config.playlist:
-        pl = f"🔈 Playlist is empty.)ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ"
+        pl = f"🔈 پلی لیست خالیه)ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ"
     else:
         if len(Config.playlist)>=25:
             tplaylist=Config.playlist[:25]
-            pl=f"Listing first 25 songs of total {len(Config.playlist)} songs.\n"
-            pl += f"▶️ **Playlist**: ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ\n" + "\n".join([
-                f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}"
+            pl=f"لیسته ۲۵ تای اول از {len(Config.playlist)} عدد\n"
+            pl += f"▶️ **پلی لیست**: ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ\n" + "\n".join([
+                f"**{i}**. **🎸{x[1]}**\n   👤**پلی توسطه:** {x[4]}"
                 for i, x in enumerate(tplaylist)
                 ])
             tplaylist.clear()
         else:
-            pl = f"▶️ **Playlist**: ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ\n" + "\n".join([
-                f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}\n"
+            pl = f"▶️ **پلی لیست**: ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ\n" + "\n".join([
+                f"**{i}**. **🎸{x[1]}**\n   👤**پلی توسطه:** {x[4]}\n"
                 for i, x in enumerate(Config.playlist)
             ])
     return pl
