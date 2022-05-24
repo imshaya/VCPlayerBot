@@ -63,37 +63,37 @@ async def start(client, message):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(f"Play", callback_data='help_play'),
-                        InlineKeyboardButton(f"Settings", callback_data=f"help_settings"),
-                        InlineKeyboardButton(f"Recording", callback_data='help_record'),
+                        InlineKeyboardButton(f"پلی", callback_data='help_play'),
+                        InlineKeyboardButton(f"تنظیمات", callback_data=f"help_settings"),
+                        InlineKeyboardButton(f"ضبط", callback_data='help_record'),
                     ],
                     [
-                        InlineKeyboardButton("Scheduling", callback_data="help_schedule"),
-                        InlineKeyboardButton("Controling", callback_data='help_control'),
-                        InlineKeyboardButton("Admins", callback_data="help_admin"),
+                        InlineKeyboardButton("برنامه ریزی", callback_data="help_schedule"),
+                        InlineKeyboardButton("کنترل", callback_data='help_control'),
+                        InlineKeyboardButton("ادمین ها", callback_data="help_admin"),
                     ],
                     [
-                        InlineKeyboardButton(f"Misc", callback_data='help_misc'),
-                        InlineKeyboardButton("Close", callback_data="close"),
+                        InlineKeyboardButton(f"متفرقه", callback_data='help_misc'),
+                        InlineKeyboardButton("بستن", callback_data="close"),
                     ],
                 ]
                 )
-            await message.reply("Learn to use the VCPlayer, Showing help menu, Choose from the below options.",
+            await message.reply("از توی منوی اموزش، استفاده از ربات رو یاد بگیر",
                 reply_markup=reply_markup,
                 disable_web_page_preview=True
                 )
         elif 'sch' in message.command[1]:
-            msg=await message.reply("Checking schedules..")
+            msg=await message.reply("چک کردنه برنامه ریزی ها...")
             you, me = message.command[1].split("_", 1)
             who=Config.SCHEDULED_STREAM.get(me)
             if not who:
-                return await msg.edit("Something gone somewhere.")
+                return await msg.edit("یچیزی یجایی گم شده")
             del Config.SCHEDULED_STREAM[me]
             whom=f"{message.chat.id}_{msg.message_id}"
             Config.SCHEDULED_STREAM[whom] = who
             await sync_to_db()
             if message.from_user.id not in Config.ADMINS:
-                return await msg.edit("OK da")
+                return await msg.edit("اوک دا")
             today = datetime.now(IST)
             smonth=today.strftime("%B")
             obj = calendar.Calendar()
@@ -121,8 +121,8 @@ async def start(client, message):
                         k=d    
                     f.append(InlineKeyboardButton(text=f"{k}",callback_data=f"sch_month_{year_}_{month}_{d}"))
                 button.append(f)
-            button.append([InlineKeyboardButton("Close", callback_data="schclose")])
-            await msg.edit(f"Choose the day of the month you want to schedule the voicechat.\nToday is {thisday} {smonth} {year}. Chooosing a date preceeding today will be considered as next year {year+1}", reply_markup=InlineKeyboardMarkup(button))
+            button.append([InlineKeyboardButton("بستن", callback_data="schclose")])
+            await msg.edit(f"روزه ماهی که میخوای ویدیوچت رو برنامه ریزی کنی رو انتخاب کن\nامروز {thisday} {smonth} {year}. اگ دیقن همین لحظه رو انتخاب کنی، ساله بعد پخش میشه {year+1}", reply_markup=InlineKeyboardMarkup(button))
 
 
 
@@ -133,8 +133,8 @@ async def start(client, message):
             InlineKeyboardButton('خالق', url='https://t.me/elenlil')
         ],
         [
-            InlineKeyboardButton('👨🏼‍🦯 Help', callback_data='help_main'),
-            InlineKeyboardButton('🗑 Close', callback_data='close'),
+            InlineKeyboardButton('👨🏼‍🦯 اموزش', callback_data='help_main'),
+            InlineKeyboardButton('🗑 بستن', callback_data='close'),
         ]
     ]
     reply_markup = InlineKeyboardMarkup(buttons)
@@ -148,29 +148,29 @@ async def show_help(client, message):
     reply_markup=InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("Play", callback_data='help_play'),
-                InlineKeyboardButton("Settings", callback_data=f"help_settings"),
-                InlineKeyboardButton("Recording", callback_data='help_record'),
+                InlineKeyboardButton("پلی", callback_data='help_play'),
+                InlineKeyboardButton("تنظیمات", callback_data=f"help_settings"),
+                InlineKeyboardButton("ضبط", callback_data='help_record'),
             ],
             [
-                InlineKeyboardButton("Scheduling", callback_data="help_schedule"),
-                InlineKeyboardButton("Controling", callback_data='help_control'),
-                InlineKeyboardButton("Admins", callback_data="help_admin"),
+                InlineKeyboardButton("برنامه ریزی", callback_data="help_schedule"),
+                InlineKeyboardButton("کنترل", callback_data='help_control'),
+                InlineKeyboardButton("ادمین ها", callback_data="help_admin"),
             ],
             [
-                InlineKeyboardButton("Misc", callback_data='help_misc'),
-                InlineKeyboardButton("Config Vars", callback_data='help_env'),
-                InlineKeyboardButton("Close", callback_data="close"),
+                InlineKeyboardButton("متفرقه", callback_data='help_misc'),
+                InlineKeyboardButton("کانفیگ", callback_data='help_env'),
+                InlineKeyboardButton("بستن", callback_data="close"),
             ],
         ]
         )
     if message.chat.type != "private" and message.from_user is None:
         k=await message.reply(
-            text="I cant help you here, since you are an anonymous admin. Get help in PM",
+            text="اینجا نمیتونم برات کاری کنم بصیک پی",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(f"Help", url=f"https://telegram.dog/{Config.BOT_USERNAME}?start=help"),
+                        InlineKeyboardButton(f"اموزش", url=f"https://telegram.dog/{Config.BOT_USERNAME}?start=help"),
                     ]
                 ]
             ),)
@@ -179,7 +179,7 @@ async def show_help(client, message):
     if Config.msg.get('help') is not None:
         await Config.msg['help'].delete()
     Config.msg['help'] = await message.reply_text(
-        "Learn to use the VCPlayer, Showing help menu, Choose from the below options.",
+        "اموزشه استفاده از ربات",
         reply_markup=reply_markup,
         disable_web_page_preview=True
         )
@@ -211,7 +211,7 @@ async def update_handler(client, message):
                 await db.edit_config("RESTART", msg)
             await sync_to_db()
     else:
-        k = await message.reply("No Heroku APP found, Trying to restart.")
+        k = await message.reply("درحاله ریست...")
         if Config.DATABASE_URI:
             msg = {"msg_id":k.message_id, "chat_id":k.chat.id}
             if not await db.is_saved("RESTART"):
@@ -226,19 +226,19 @@ async def update_handler(client, message):
 
 @Client.on_message(filters.command(['logs', f"logs@{Config.BOT_USERNAME}"]) & admin_filter & chat_filter)
 async def get_logs(client, message):
-    m=await message.reply("Checking logs..")
+    m=await message.reply("چک کردنه لاگ...")
     if os.path.exists("botlog.txt"):
-        await message.reply_document('botlog.txt', caption="Bot Logs")
+        await message.reply_document('botlog.txt', caption="لاگه بات")
         await m.delete()
         await delete_messages([message])
     else:
-        k = await m.edit("No log files found.")
+        k = await m.edit("هیچ فایله لاگی پیدا نشد")
         await delete_messages([message, k])
 
 @Client.on_message(filters.command(['env', f"env@{Config.BOT_USERNAME}", "config", f"config@{Config.BOT_USERNAME}"]) & sudo_filter & chat_filter)
 async def set_heroku_var(client, message):
     with suppress(MessageIdInvalid, MessageNotModified):
-        m = await message.reply("Checking config vars..")
+        m = await message.reply("چک کردنه کانفیگ..")
         if " " in message.text:
             cmd, env = message.text.split(" ", 1)
             if "=" in env:
@@ -254,31 +254,31 @@ async def set_heroku_var(client, message):
                         "EDIT_TITLE", "RECORDING_DUMP", "RECORDING_TITLE", "IS_VIDEO", "IS_LOOP", "DELAY", "PORTRAIT", 
                         "IS_VIDEO_RECORD", "PTN", "CUSTOM_QUALITY"]
                 if env_ in ENV_VARS:
-                    await m.edit(f"Current Value for `{env}`  is `{getattr(Config, env_)}`")
+                    await m.edit(f"این شناسه برای این کانفیگ `{env}`  هستش `{getattr(Config, env_)}`")
                     await delete_messages([message])
                     return
                 else:
-                    await m.edit("This is an invalid env value. Read help on env to know about available env vars.")
+                    await m.edit("این شناسه نامعتبره")
                     await delete_messages([message, m])
                     return     
             
         else:
-            await m.edit("You haven't provided any value for env, you should follow the correct format.\nExample: <code>/env CHAT=-1020202020202</code> to change or set CHAT var.\n<code>/env REPLY_MESSAGE= <code>To delete REPLY_MESSAGE.")
+            await m.edit("شما هیچ شناسه ای وارد نکردید\nمثال: <code>/env CHAT=-1020202020202</code> برای تغییر گپه ربات\n<code>/env REPLY_MESSAGE= <code>برای حذف شناسه ی کانفیگ REPLY_MESSAGE.")
             await delete_messages([message, m])
             return
 
         if Config.DATABASE_URI and var in ["STARTUP_STREAM", "CHAT", "LOG_GROUP", "REPLY_MESSAGE", "DELAY", "RECORDING_DUMP", "QUALITY"]:      
-            await m.edit("Mongo DB Found, Setting up config vars...")
+            await m.edit("دیتابیس پیدا شد، درحاله تنظیمه کانفیگ..")
             await asyncio.sleep(2)  
             if not value:
-                await m.edit(f"No value for env specified. Trying to delete env {var}.")
+                await m.edit(f"هیچ شناسه ای برای کانفیگ وجود نداره پاکش کن کانفیگو {var}.")
                 await asyncio.sleep(2)
                 if var in ["STARTUP_STREAM", "CHAT", "DELAY"]:
-                    await m.edit("This is a mandatory var and cannot be deleted.")
+                    await m.edit("این شناسه سیستمیه و نمیتونی عوضش کنی")
                     await delete_messages([message, m]) 
                     return
                 await edit_config(var, False)
-                await m.edit(f"Sucessfully deleted {var}")
+                await m.edit(f"شناسه با موفقیت حذف شد {var}")
                 await delete_messages([message, m])           
                 return
             else:
@@ -288,7 +288,7 @@ async def set_heroku_var(client, message):
                     except:
                         if var == "QUALITY":
                             if not value.lower() in ["low", "medium", "high"]:
-                                await m.edit("You should specify a value between 10 - 100.")
+                                await m.edit("شما باید شناسه ای بین ۱۰ تا ۱۰۰ انتخاب کنید")
                                 await delete_messages([message, m])
                                 return
                             else:
@@ -300,7 +300,7 @@ async def set_heroku_var(client, message):
                                 elif value == "low":
                                     value = 50
                         else:
-                            await m.edit("You should give me a chat id . It should be an interger.")
+                            await m.edit("باید عای دی عددی گپو بهم بدی")
                             await delete_messages([message, m])
                             return
                     if var == "CHAT":
@@ -322,37 +322,37 @@ async def set_heroku_var(client, message):
                             k, reply = await seek_file(0)
                             if k == False:
                                 await restart_playout()
-                    await m.edit(f"Succesfully changed {var} to {value}")
+                    await m.edit(f"با موفقیت این کانفیگ {var} اضافه شد به این شناسه {value}")
                     await delete_messages([message, m])
                     return
                 else:
                     if var == "STARTUP_STREAM":
                         Config.STREAM_SETUP=False
                     await edit_config(var, value)
-                    await m.edit(f"Succesfully changed {var} to {value}")
+                    await m.edit(f"با موفقیت این کانفیگ {var} اضافه شد به این شناسه {value}")
                     await delete_messages([message, m])
                     await restart_playout()
                     return
         else:
             if not Config.HEROKU_APP:
-                buttons = [[InlineKeyboardButton('Heroku API_KEY', url='https://dashboard.heroku.com/account/applications/authorizations/new'), InlineKeyboardButton('🗑 Close', callback_data='close'),]]
+                buttons = [[InlineKeyboardButton('ای پی عای هیروکو', url='https://dashboard.heroku.com/account/applications/authorizations/new'), InlineKeyboardButton('🗑 بستن', callback_data='close'),]]
                 await m.edit(
-                    text="No heroku app found, this command needs the following heroku vars to be set.\n\n1. <code>HEROKU_API_KEY</code>: Your heroku account api key.\n2. <code>HEROKU_APP_NAME</code>: Your heroku app name.", 
+                    text="برنامه ی هیروکویی وجور نداره، این برنامه نیاز به این مقادیر داره\n\n1. <code>HEROKU_API_KEY</code>: کلیده ای پی عایه هیروکوی شما\n2. <code>HEROKU_APP_NAME</code>: اسم برنامه ی هیروکوی شما", 
                     reply_markup=InlineKeyboardMarkup(buttons)) 
                 await delete_messages([message])
                 return     
             config = Config.HEROKU_APP.config()
             if not value:
-                await m.edit(f"No value for env specified. Trying to delete env {var}.")
+                await m.edit(f"این کانفیگ هیچ شناسه ای نداره پس پاکش کن {var}.")
                 await asyncio.sleep(2)
                 if var in ["STARTUP_STREAM", "CHAT", "DELAY", "API_ID", "API_HASH", "BOT_TOKEN", "SESSION_STRING", "ADMINS"]:
-                    await m.edit("These are mandatory vars and cannot be deleted.")
+                    await m.edit("این شناسه و کانفیگ ها سیستمین و نمیشه پاکشون کرد")
                     await delete_messages([message, m])
                     return
                 if var in config:
-                    await m.edit(f"Sucessfully deleted {var}")
+                    await m.edit(f"با موفقیت حذف شد {var}")
                     await asyncio.sleep(2)
-                    await m.edit("Now restarting the app to make changes.")
+                    await m.edit("رباتو ریست کنید تا تغییرات ذخیره شه")
                     if Config.DATABASE_URI:
                         msg = {"msg_id":m.message_id, "chat_id":m.chat.id}
                         if not await db.is_saved("RESTART"):
@@ -362,15 +362,15 @@ async def set_heroku_var(client, message):
                     del config[var]                
                     config[var] = None               
                 else:
-                    k = await m.edit(f"No env named {var} found. Nothing was changed.")
+                    k = await m.edit(f"هیچ شناسه ای برای {var} این کانفیگ پیدا نشد پس چیزی تغییر نکرد")
                     await delete_messages([message, k])
                 return
             if var in config:
-                await m.edit(f"Variable already found. Now edited to {value}")
+                await m.edit(f"کانفیگ درحاله حاظر پیدا شد و تغییر پیدا کرد به {value}")
             else:
-                await m.edit(f"Variable not found, Now setting as new var.")
+                await m.edit(f"کانفیگ پیدا نشد پس بعنوانه حدید ثبت شد")
             await asyncio.sleep(2)
-            await m.edit(f"Succesfully set {var} with value {value}, Now Restarting to take effect of changes...")
+            await m.edit(f"کانفیگ با موفقیت ست شد {var} با این شناسه {value}, حالا ریست برای وبت تنظیماته حدید...")
             if Config.DATABASE_URI:
                 msg = {"msg_id":m.message_id, "chat_id":m.chat.id}
                 if not await db.is_saved("RESTART"):
