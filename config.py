@@ -195,249 +195,221 @@ class Config:
 
     #help strings 
     PLAY_HELP="""
-__You can play using any of these options__
+__با هرکودوم از این موارد میتونید پلی کنید__
 
-1. Play a video from a YouTube link.
-Command: **/play**
-__You can use this as a reply to a YouTube link or pass link along command. or as a reply to message to search that in YouTube.__
+1. پلی کردنه ویدیو از لینکه یوتوب
+دستور: **/play**
+__همین کار رو با ریپلای کردن روی لینکه یوتوب هم میتونید انجام بدید__
 
-2. Play from a telegram file.
-Command: **/play**
-__Reply to a supported media(video and documents or audio file ).__
-Note: __For both the cases /fplay also can be used by admins to play the song immediately without waiting for queue to end.__
+2. پلی کردن از فایله تلگرام
+دستور: **/play**
+__روی مدیای خودتون ریپلای کنید و دستور رو بنویسید.__
+نکته: __در هر دو مورد میتونید با این دستور: /fplay همه ی پلی ها رو خودکار کنسل کرده و چیزی ک میخاید رو سریعن پخش کنید__
 
-3. Play from a YouTube playlist
-Command: **/yplay**
-__First get a playlist file from @GetPlaylistBot or @DumpPlaylist and reply to playlist file.__
+3. پلی کردنه پلی لیسته یوتوب
+دستور: **/yplay**
+__اول از همه از طریقه این ربات پلی لیسته مورد نظرتون رو تبدیل ب فایل کنید @GetPlaylistBot این ربات هم خوبه @DumpPlaylist و سپس ریپلای کنید روی فایله پلی لیست و دستور بدید__
 
-4. Live Stream
-Command: **/stream**
-__Pass a live stream URL or any direct URL to play it as stream.__
+4. لایو استریم
+دستور: **/stream**
+__هر لینکه مستقیمی یا لینکه پخش زنده ای رو با این دستور میتونید استریم کنید__
 
-5. Import an old playlist.
-Command: **/import**
-__Reply to a previously exported playlist file. __
+5. استفاده از پلی لیسته قدیمیه خودتون از همین ربات
+دستور: **/import**
+__ریپلای کنید روی فایل پلی لیستتون __
 
-6. Channel Play
-Command: **/cplay**
-__Use `/cplay channel username or channel id` to play all the files from the given channel.
-By default both video files and documents will be played . You can add or remove the file type using `FILTERS` var. 
-For example , to stream audio, video and document from the channel use `/env FILTERS video document audio` . If you need only audio , you can use `/env FILTERS video audio` and so on.
-To set up the files from a channel as STARTUP_STREAM, so that the files will be automatically added to playlist on startup of bot. use `/env STARTUP_STREAM channel username or channel id`
-
-Note that for public channels you should use username of channels along with '@' and for private channels you should use channel id.
-For private channels , make sure both the bot and USER account is a member of channel.__
+6. پلی از چنل
+دستور: **/cplay**
+__با استفاده از `/cplay عای عددی یا عدساینی چنل` میتونید تمام فایل های چنل موردنظرتون رو پلی کنید
+بطور پیشفرض همه ی چیز های چنل رو پلی میکنه ولی شما میتونی از طریقه این دستور شخصی سازی کنید: /env FILTERS=audio, video, documents و همچین شمام میتونید از چنل مورد نظرتون بعنوان استارتاپ استریم هم استفاده کنید`__
 """
     SETTINGS_HELP="""
-**You can easily customize you player as per you needs. The following configurations are available:**
+**میتونی رباتتو با این دستورا ب راحتی شخصی سازی کنی**
 
-🔹Command: **/settings**
+🔹دستور: **/settings**
 
-🔹AVAILABLE CONFIGURATIONS:
+🔹موارده در دسترس:
 
-**Player Mode** -  __This allows you to run your player as 24/7 music player or only when there is song in queue. 
-If disabled, player will leave from the call when the playlist is empty.
-Otherwise STARTUP_STREAM will be streamed when playlist id empty.__
+**مود پلیر** -  __این بهت این امکان رو میده ک بصورت ۲۴ ساعته رباتت کار کنه یا فقط موقعی ک چیزی پلی میکنی__
 
-**Video Enabled** -  __This allows you to switch between audio and video.
-if disabled, video files will be played as audio.__
+**ویدیو فعال** -  __این بهت این امکان رو میده ک رباتو از حالته ویدیویی به موزیکی سوییچ کنی__
 
-**Admin Only** - __Enabling this will restrict non-admin users from using play command.__
+**فقط ادمین** - __با فعال کردنه این مورد کسی جز ادمینا نمیتونه ب ربات دستور بده__
 
-**Edit Title** - __Enabling this will edit your VideoChat title to current playing songs name.__
+**تغییر تایتل** - __با فعال کردنه این مورد، ربات اتوماتیک تایتل وویس چت رو عوض میکنه__
 
-**Shuffle Mode** - __Enabling this will shuffle the playlist whenever you import a playlist or using /yplay __
+**مود دَرهم** - __با فعال کردنه این مورد، ربات پلی لیست رو دَرهم پخش میکنه __
 
-**Auto Reply** - __Choose whether to reply the PM messages of playing user account.
-You can  set up a custom reply message using `REPLY_MESSAGE` confug.__
+**ریپلای اتوماتیک** - __با فعال کردنه این مورد، یوزر باتتون اتوماتیک جوابه پی ویاش رو میده__
 
 """
     SCHEDULER_HELP="""
-__VCPlayer allows you to schedule a stream. 
-This means you can schedule a stream for a future date and on the scheduled date, stream will be played automatically.
-At present you can schedule a stream for even one year!!. Make sure you have set up a databse, else you will loose your schedules whenever the player restarts. __
+__این ربات، امکان برنامه ریزی زمانبندی برای پخش خودکار هم داره __
 
-Command: **/schedule**
+دستور: **/schedule**
 
-__Reply to a file or a youtube video or even a text message with schedule command.
-The replied media or youtube video will be scheduled and will be played on the scheduled date.
-The scheduling time is by default in IST and you can change the timezone using `TIME_ZONE` config.__
+__چیزی ک میخاید برنامه ریزی شده پخش بشه رو از طریقه این دستور با ریپلای یا لینک اجرا کنید__
 
-Command: **/slist**
-__View your current scheduled streams.__
+دستور: **/slist**
+__این دستور، لیسته زمان بندی هایی ک از قبل کردید رو نشون میده__
 
-Command: **/cancel**
-__Cancel a schedule by its schedule id, You can get the schedule id using /slist command__
+دستور: **/cancel**
+__با این دستور و نوشتن عای دیه برنامه ریزی جلوش، اون برنامه ریزی رو میتونید کنسل کنید__
 
-Command: **/cancelall**
-__Cancel all the scheduled streams__
+دستور: **/cancelall**
+__با این دستور همه ی برنامه ریزی هارو میتونید کنسل کنید__
 """
     RECORDER_HELP="""
-__With VCPlayer you can easily record all your video chats.
-By default telegram allows you to record for a maximum duration of 4 hours. 
-An attempt to overcome this limit has been made by automatically restarting the recording after  4 hours__
+__با این ربات شما میتونید هم ویدیو هم صدا رو ب مدت ۴ ساعت ضبط کنید__
 
-Command: **/record**
+دستور: **/record**
 
-AVAILABLE CONFIGURATIONS:
-1. Record Video: __If enabled both the video and audio of the stream will be recorded, otherwise only audio will be recorded.__
+مقادیر در دسترس:
+1. ضبط ویدیو: __اگ فعال باشه، هم ویدیو هم صدا ضبط میشن__
 
-2. Video dimension: __Choose between portrait and landscape dimensions for your recording__
+2. ابعاد ویدیو: __میتونید از این طریق ویدیو خودتون رو انتخاب کنید ک پرتره ضبط بشه یا افقی__
 
-3. Custom Recording Title: __Set up a custom recording title for your recordings. Use a command /rtitle to configure this.
-To turn off the custom title, use `/rtitle False `__
+3. تایتل دستیه ضبط: __با این گزینه میتونید تایتل وویس چت رو برای ضبط دستی تغییر بدید__
 
-4. Recording Dumb: __You can set up forwarding all your recordings to a channel, this will be useful since otherwise recordings are sent to saved messages of streaming account.
-Setup using `RECORDING_DUMP` config.__
+4. چنل بخصوص برای ضبط: __از طریقه این قابلیت میتونید چنلی رو تنظیم کنید ک همه ی ضبط ها خودکار اونجا منتقل شن__
 
-⚠️ If you start a recording with vcplayer, make sure you stop the same with vcplayer.
+⚠️نکته: وقتی ضبطی با ربات شروع میکنید، باید با ربات هم تمومش کنید
 
 """
 
     CONTROL_HELP="""
-__VCPlayer allows you to control your streams easily__
-1. Skip a song.
-Command: **/skip**
+__این ربات جتی کنترلی داره مثه کنترل تلویزیون__
+1. رد کردن
+دستور: **/skip**
 __You can pass a number greater than 2 to skip the song in that position.__
 
-2. Pause the player.
-Command: **/pause**
+2. استوپ کردن
+دستور: **/pause**
 
-3. Resume the player.
-Command: **/resume**
+3. از سرگرفتن
+دستور: **/resume**
 
-4. Change Volume.
-Command: **/volume**
+4. تغییر ولوم
+دستور: **/volume**
 __Pass the volume in between 1-200.__
 
-5. Leave the VC.
-Command: **/leave**
+5. خروج از وویس چت
+دستور: **/leave**
 
-6. Shuffle the playlist.
-Command: **/shuffle**
+6. دَرهم کردن پلی لیست
+دستور: **/shuffle**
 
-7. Clear the current playlist queue.
-Command: **/clearplaylist**
+7. خالی کردنه پلی لیست
+دستور: **/clearplaylist**
 
-8. Seek the video.
-Command: **/seek**
+8. جلو زدن
+دستور: **/seek**
 __You can pass number of seconds to be skipped. Example: /seek 10 to skip 10 sec. /seek -10 to rewind 10 sec.__
 
-9. Mute the player.
-Command: **/vcmute**
+9. سکوت کردن
+دستور: **/vcmute**
 
-10. Unmute the player.
-Command : **/vcunmute**
+10. لغو سکوت کردن
+دستور : **/vcunmute**
 
-11. Shows the playlist.
-Command: **/playlist** 
-__Use /player to show with control buttons__
+11. نشان دادنه پلی لیست
+دستور: **/playlist** 
+__با استفاده از این دستور: /player اگه پلیر حذف شده باشه یا زیاد رفته باشه بالا، دوباره میتونید بیاریدش__
 """
 
     ADMIN_HELP="""
-__VCPlayer allows to control admins, that is you can add admins and remove them easily.
-It is recommended to use a MongoDb database for better experience, else all you admins will get reset after restart.__
+__این ربات حتی بهتون امکانه مدیریت ادمین ها رو هم میده__
 
-Command: **/vcpromote**
-__You can promote a admin with their username or user id or by replying to that users message.__
+دستور: **/vcpromote**
+__میتونید یک ادمین ب ربات اضاقه کنید__
 
-Command: **/vcdemote**
-__Remove an admin from admin list__
+دستور: **/vcdemote**
+__میتونید یک ادمین رباتو عزل کنید__
 
-Command: **/refresh**
-__Refresh the admin list of chat__
+دستور: **/refresh**
+__تطبیق ادمین های گپ با ربات__
 """
 
     MISC_HELP="""
-Command: **/export**
-__VCPlayer allows you to export your current playlist for future use.__
-__A json file will be sent to you and the same can be used along /import command.__
+دستور: **/export**
+__تبدیل پلی لیست ب فایل__
 
-Command : **/logs**
-__If your player went something gone wrong, you can easily check the logs using /logs__
+دستور : **/logs**
+__اگ مشکلی برای ربات پیش اومد با این دستور میتونی اخر اوضاع کدنویسیشو مشاهده کنی /logs__
  
-Command : **/env**
-__Setup your config vars with /env command.__
-__Example: To set up a__ `REPLY_MESSAGE` __use__ `/env REPLY_MESSAGE=Hey, Check out @El-enLiL rather than spamming in my PM`__
-__You can delete a config var by ommiting a value for that, Example:__ `/env LOG_GROUP=` __this will delete the existing LOG_GROUP config.
+دستور : **/env**
+__با این دستور میتونی تنظیماته کدنویسیه ربات رو تغییر بدی__
 
-Command: **/config**
-__Same as using /env**
+دستور: **/config**
+__همون کاراییه دستوره قبلیو داره /env**
 
-Command: **/update**
-__Updates youe bot with latest changes__
-
-Tip: __You can easily change the CHAT config by adding the user account and bot account to any other group and any command in new group__
+دستور: **/update**
+__عاپدیت کردنه ربات با اخرین تغییرات__
 
 """
     ENV_HELP="""
-**These are the configurable vars available and you can set each one of them using /env command**
+**تنظیمه کانفیگه کدنویسیه ربات**
 
 
-**Mandatory Vars**
+**کانفیگ های سیستمی**
 
-1. `API_ID` : __Get From [my.telegram.org](https://my.telegram.org/)__
+1. `API_ID` 
 
-2. `API_HASH` : __Get from [my.telegram.org](https://my.telegram.org)__
+2. `API_HASH` 
 
-3. `BOT_TOKEN` : __[@Botfather](https://telegram.dog/BotFather)__
+3. `BOT_TOKEN`
 
-4. `SESSION_STRING` : __Generate From here [GenerateStringName](https://repl.it/@subinps/getStringName)__
+4. `SESSION_STRING`
 
-5. `CHAT` : __ID of Channel/Group where the bot plays Music.__
+5. `CHAT`
 
-6. `STARTUP_STREAM` : __This will be streamed on startups and restarts of bot. 
-You can use either any STREAM_URL or a direct link of any video or a Youtube Live link. 
-You can also use YouTube Playlist.Find a Telegram Link for your playlist from [PlayList Dumb](https://telegram.dog/DumpPlaylist) or get a PlayList from [PlayList Extract](https://telegram.dog/GetAPlaylistbot). 
-The PlayList link should in form `https://t.me/DumpPlaylist/xxx`
-You can also use the files from a channel as startup stream. For that just use the channel id or channel username of channel as STARTUP_STREAM value.
-For more info on channel play , read help from player section.__
+6. `STARTUP_STREAM`
 
-**Recommended Optional Vars**
+**کانفیگ های پیشنهاد شده**
 
-1. `DATABASE_URI`: __MongoDB database Url, get from [mongodb](https://cloud.mongodb.com). This is an optional var, but it is recomonded to use this to experiance the full features.__
+1. `DATABASE_URI`
 
-2. `HEROKU_API_KEY`: __Your heroku api key. Get one from [here](https://dashboard.heroku.com/account/applications/authorizations/new)__
+2. `HEROKU_API_KEY`
 
-3. `HEROKU_APP_NAME`: __Your heroku app's name.__
+3. `HEROKU_APP_NAME`
 
-4. `FILTERS`: __Filters for channel play file search. Read help about cplay in player section.__
+4. `FILTERS`
 
-**Other Optional Vars**
-1. `LOG_GROUP` : __Group to send Playlist, if CHAT is a Group__
+**کانفیگ های اختیاری**
+1. `LOG_GROUP`
 
-2. `ADMINS` : __ID of users who can use admin commands.__
+2. `ADMINS`
 
-3. `REPLY_MESSAGE` : __A reply to those who message the USER account in PM. Leave it blank if you do not need this feature. (Configurable through buttons if mongodb added. Use /settings)__
+3. `REPLY_MESSAGE`
 
-4. `ADMIN_ONLY` : __Pass `True` If you want to make /play command only for admins of `CHAT`. By default /play is available for all.(Configurable through buttons if mongodb added. Use /settings)__
+4. `ADMIN_ONLY`
 
-5. `DATABASE_NAME`: __Database name for your mongodb database.mongodb__
+5. `DATABASE_NAME`
 
-6. `SHUFFLE` : __Make it `False` if you dont want to shuffle playlists. (Configurable through buttons)__
+6. `SHUFFLE`
 
-7. `EDIT_TITLE` : __Make it `False` if you do not want the bot to edit video chat title according to playing song. (Configurable through buttons if mongodb added. Use /settings)__
+7. `EDIT_TITLE`
 
-8. `RECORDING_DUMP` : __A Channel ID with the USER account as admin, to dump video chat recordings.__
+8. `RECORDING_DUMP`
 
-9. `RECORDING_TITLE`: __A custom title for your videochat recordings.__
+9. `RECORDING_TITLE`
 
-10. `TIME_ZONE` : __Time Zone of your country, by default IST__
+10. `TIME_ZONE`
 
-11. `IS_VIDEO_RECORD` : __Make it `False` if you do not want to record video, and only audio will be recorded.(Configurable through buttons if mongodb added. Use /record)__
+11. `IS_VIDEO_RECORD`
 
-12. `IS_LOOP` ; __Make it `False` if you do not want 24 / 7 Video Chat. (Configurable through buttons if mongodb added.Use /settings)__
+12. `IS_LOOP`
 
-13. `IS_VIDEO` : __Make it `False` if you want to use the player as a musicplayer without video. (Configurable through buttons if mongodb added. Use /settings)__
+13. `IS_VIDEO`
 
-14. `PORTRAIT`: __Make it `True` if you want the video recording in portrait mode. (Configurable through buttons if mongodb added. Use /record)__
+14. `PORTRAIT`
 
-15. `DELAY` : __Choose the time limit for commands deletion. 10 sec by default.__
+15. `DELAY`
 
-16. `QUALITY` : __Customize the quality of video chat, use one of `high`, `medium`, `low` . __
+16. `QUALITY`
 
-17. `BITRATE` : __Bitrate of audio (Not recommended to change).__
+17. `BITRATE`
 
-18. `FPS` : __Fps of video to be played (Not recommended to change.)__
+18. `FPS`
 
 """
