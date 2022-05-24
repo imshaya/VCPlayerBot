@@ -1455,15 +1455,15 @@ async def get_playlist_str():
     else:
         if len(Config.playlist)>=25:
             tplaylist=Config.playlist[:25]
-            pl=f"Listing first 25 songs of total {len(Config.playlist)} songs.\n"
-            pl += f"▶️ **Playlist**: ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ\n" + "\n".join([
-                f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}"
+            pl=f"لیست ۲۵ تای اول از {len(Config.playlist)} عدد\n"
+            pl += f"▶️ **پلی لیست**: ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ\n" + "\n".join([
+                f"**{i}**. **🎸{x[1]}**\n   👤**پلی توسطه:** {x[4]}"
                 for i, x in enumerate(tplaylist)
                 ])
             tplaylist.clear()
         else:
-            pl = f"▶️ **Playlist**: ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ\n" + "\n".join([
-                f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}\n"
+            pl = f"▶️ **پلی لیست**: ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ\n" + "\n".join([
+                f"**{i}**. **🎸{x[1]}**\n   👤**پلی توسطه:** {x[4]}\n"
                 for i, x in enumerate(Config.playlist)
             ])
     return pl
@@ -1793,9 +1793,9 @@ def convert(seconds):
 
 def get_pause(status):
     if status == True:
-        return "Resume"
+        return "از سرگیری"
     else:
-        return "Pause"
+        return "استوپ"
 
 #https://github.com/pytgcalls/pytgcalls/blob/dev/pytgcalls/types/input_stream/video_tools.py#L27-L38
 def resize_ratio(w, h, factor):
