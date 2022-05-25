@@ -1524,7 +1524,7 @@ async def settings_panel():
         [
             [
                InlineKeyboardButton(f"مود پلیر", callback_data='info_mode'),
-               InlineKeyboardButton(f"{'🔂 پخش ۲۴ ساعته' if Config.IS_LOOP else '▶️ Play and Leave'}", callback_data='is_loop'),
+               InlineKeyboardButton(f"{'🔂 پخش ۲۴ ساعته' if Config.IS_LOOP else '▶️ پلی و خروج'}", callback_data='is_loop'),
             ],
             [
                 InlineKeyboardButton("🎞 ویدیو", callback_data=f"info_video"),
